@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct MovienatorApp: App {
+    @StateObject private var dataController = CoreDataController()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(movieViewModel: MovieViewModel(moc: dataController.container.viewContext))
+                .environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }
