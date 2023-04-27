@@ -11,6 +11,8 @@
 		838988A329FAAE560089DA91 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838988A229FAAE560089DA91 /* ContentView.swift */; };
 		838988A529FAAE570089DA91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 838988A429FAAE570089DA91 /* Assets.xcassets */; };
 		838988A829FAAE570089DA91 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 838988A729FAAE570089DA91 /* Preview Assets.xcassets */; };
+		838988B029FAAEBE0089DA91 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838988AF29FAAEBE0089DA91 /* CoreDataController.swift */; };
+		838988B329FAAFC80089DA91 /* Movienator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 838988B129FAAFC80089DA91 /* Movienator.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		838988A229FAAE560089DA91 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		838988A429FAAE570089DA91 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		838988A729FAAE570089DA91 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		838988AF29FAAEBE0089DA91 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		838988B229FAAFC80089DA91 /* Movienator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Movienator.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +55,7 @@
 		8389889F29FAAE560089DA91 /* Movienator */ = {
 			isa = PBXGroup;
 			children = (
+				838988AE29FAAEAE0089DA91 /* Model */,
 				838988A029FAAE560089DA91 /* MovienatorApp.swift */,
 				838988A229FAAE560089DA91 /* ContentView.swift */,
 				838988A429FAAE570089DA91 /* Assets.xcassets */,
@@ -65,6 +70,15 @@
 				838988A729FAAE570089DA91 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		838988AE29FAAEAE0089DA91 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				838988B129FAAFC80089DA91 /* Movienator.xcdatamodeld */,
+				838988AF29FAAEBE0089DA91 /* CoreDataController.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +153,8 @@
 			files = (
 				838988A329FAAE560089DA91 /* ContentView.swift in Sources */,
 				838988A129FAAE560089DA91 /* MovienatorApp.swift in Sources */,
+				838988B029FAAEBE0089DA91 /* CoreDataController.swift in Sources */,
+				838988B329FAAFC80089DA91 /* Movienator.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +353,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		838988B129FAAFC80089DA91 /* Movienator.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				838988B229FAAFC80089DA91 /* Movienator.xcdatamodel */,
+			);
+			currentVersion = 838988B229FAAFC80089DA91 /* Movienator.xcdatamodel */;
+			path = Movienator.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8389889529FAAE560089DA91 /* Project object */;
 }
