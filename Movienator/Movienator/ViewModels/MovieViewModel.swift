@@ -10,6 +10,11 @@ import CoreData
 
 @MainActor //main thread
 class MovieViewModel: ObservableObject {
+    private let apiManager = APIManager()
+    
+    @Published var isSearching: Bool = false
+    @Published var searchItems: [MovieItem] = []
+    
     @Published var movieItems: [MovieItem] = []
     
     var moc: NSManagedObjectContext
