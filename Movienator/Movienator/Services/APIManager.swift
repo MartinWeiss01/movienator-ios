@@ -7,42 +7,48 @@
 
 import Foundation
 
-protocol APIManaging {
-    func request<T: Decodable>(_ request: URLRequest) async throws -> T
-}
-
-extension APIManaging {
-    func request<T: Decodable>(_ router: Router) async throws -> T {
-        try await request(try router.makeURLRequest())
-    }
-}
-
-class APIManager: APIManaging {
-    private let session = URLSession.shared
-    private let decoder = JSONDecoder()
+class APIManager: TMDBService {
+    private let apiKey = "APIKEY"
+    private let baseAPIURL = "https://api.themoviedb.org/3"
+    private let urlSession = URLSession.shared
+    private let jsonDecoder = JSONUtils.decoder
     
-    func request<T>(_ request: URLRequest) async throws -> T where T : Decodable {
-        print("Request for \(request.description)")
+    func searchMovie(query: String) async throws -> [SearchResultDetail] {
+        guard let url = URL(string: "\(baseAPIURL)/search/movie") else {
+                    throw MovieError.invalidEndpoint
+                }
+        let movieResponse: SearchMovieResponseDTO = try await self.loadURLAndDecode(url: url, params: [
+            "language": "en-US",
+            "include_adult": "false",
+            "region": "US",
+            "query": query
+        ])
         
-        let (data, response) = try await session.data(for: request)
-
-        guard let response = response as? HTTPURLResponse else {
-            throw APIManagerError.noHTTPResponse
-        }
-        
-        guard 200..<300 ~= response.statusCode else {
-            throw APIManagerError.wrongStatusCode(code: response.statusCode)
-        }
-        
-        let result = try decoder.decode(T.self, from: data)
-        
-        print("Response for \(request.url) \(result)")
-        return result
+        return movieResponse.results
     }
-}
-
-
-enum APIManagerError: Error {
-    case noHTTPResponse
-    case wrongStatusCode(code: Int)
+    
+    private func loadURLAndDecode<D: Decodable>(url: URL, params: [String: String]? = nil) async throws -> D {
+        guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            throw MovieError.invalidEndpoint
+        }
+        
+        var queryItems = [URLQueryItem(name: "api_key", value: apiKey)]
+        if let params = params {
+            queryItems.append(contentsOf: params.map { URLQueryItem(name: $0.key, value: $0.value) })
+        }
+        
+        urlComponents.queryItems = queryItems
+        
+        guard let finalURL = urlComponents.url else {
+            throw MovieError.invalidEndpoint
+        }
+        
+        let (data, response) = try await urlSession.data(from: finalURL)
+        
+        guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
+            throw MovieError.invalidResponse
+        }
+        
+        return try self.jsonDecoder.decode(D.self, from: data)
+    }
 }

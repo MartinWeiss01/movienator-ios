@@ -1,0 +1,11 @@
+//
+//  Config.xcconfig
+//  Movienator
+//
+//  Created by Martin Weiss on 02.06.2023.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_KEY = 2bfe8a9fe7b131bc521523d404e2c9c5

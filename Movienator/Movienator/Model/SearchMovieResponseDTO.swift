@@ -8,16 +8,43 @@
 import Foundation
 
 struct SearchMovieResponseDTO: Decodable {
-    let results: [ResultDetail]
+    let results: [SearchResultDetail]
 }
 
-struct ResultDetail: Decodable {
-    let posterPath: String?
-    let adult: Bool
-    let overview, releaseDate: String
-    let genreIDS: [Int]
+struct SearchResultDetail: Identifiable, Decodable {
     let id: Int
     let title: String
     let backdropPath: String?
+    let posterPath: String?
+    let overview: String
     let voteAverage: Double
+    let voteCount: Int
+    let runtime: Int?
+    let releaseDate: String?
+    let genres: [ItemGenre]?
+    
+    var releaseYear: String {
+        guard let releaseDate = self.releaseDate, let date = DateUtils.format.date(from: releaseDate) else {
+                    return "N/A"
+                }
+                return SearchResultDetail.getYear.string(from: date)
+    }
+    
+    static private let getYear: DateFormatter = {
+        let date = DateFormatter()
+        date.dateFormat = "yyyy"
+        return date
+    }()
+    
+    var getPosterURL: URL {
+        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? "")")!
+    }
+    
+    var getBackdropURL: URL {
+        return URL(string: "https://image.tmdb.org/t/p/w500\(backdropPath ?? "")")!
+    }
+}
+
+struct ItemGenre: Decodable {
+    let name: String
 }

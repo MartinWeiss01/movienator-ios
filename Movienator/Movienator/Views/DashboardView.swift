@@ -20,13 +20,16 @@ struct DashboardView: View {
                 }, header: {
                     Text("Find a Movie/TV series")
                 }, footer: {
-                    NavigationLink(destination: SearchTitleView(title: searchTitle)) {
+                    NavigationLink(destination: SearchTitleView(movieViewModel: movieViewModel, title: searchTitle)) {
                         Text("Search")
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 8)
                             .foregroundColor(.blue)
                     }
                     .disabled(searchTitle.isEmpty)
+                    .onTapGesture {
+                        movieViewModel.isSearching = true
+                    }
                 })
             }
             .navigationTitle("Movienator")

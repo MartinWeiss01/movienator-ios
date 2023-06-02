@@ -13,7 +13,8 @@ class MovieViewModel: ObservableObject {
     private let apiManager = APIManager()
     
     @Published var isSearching: Bool = false
-    @Published var searchItems: [MovieItem] = []
+    @Published var searchItems: [SearchResultDetail] = []
+    @Published var selectedSearchItem: SearchResultDetail?
     
     @Published var movieItems: [MovieItem] = []
     
@@ -22,6 +23,32 @@ class MovieViewModel: ObservableObject {
         self.moc = moc
     }
     
+    func selectSearchItem(id: Int) {
+        selectedSearchItem = searchItems.first(where: { $0.id == id })
+    }
+    
+    func search(query: String) async {
+        isSearching = true
+        
+        defer {
+            isSearching = false
+        }
+        
+        let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        guard !trimmedQuery.isEmpty else {
+            return
+        }
+        
+        do {
+            let movies = try await apiManager.searchMovie(query: trimmedQuery)
+            searchItems = movies
+        } catch {
+            print(error)
+        }
+        
+    }
+    /*
     func convertSearchResponseToMovieItem(response: SearchMovieResponseDTO) -> [MovieItem]? {
         let coordinatesSplit = response.results.
 
@@ -58,4 +85,5 @@ class MovieViewModel: ObservableObject {
         
         guard let resultItems = con
     }
+     */
 }
