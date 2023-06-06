@@ -11,13 +11,7 @@ struct ContentView: View {
     @StateObject var movieViewModel: MovieViewModel
     
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-        }
-        .padding()
+        DashboardView(movieViewModel: movieViewModel)
     }
 }
 
