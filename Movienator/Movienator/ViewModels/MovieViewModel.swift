@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import SwiftUI
 
 @MainActor //main thread
 class MovieViewModel: ObservableObject {
@@ -17,6 +18,8 @@ class MovieViewModel: ObservableObject {
     @Published var selectedSearchItem: SearchResultDetail?
     
     @Published var movieItems: [MovieItem] = []
+    @Published var watchlistItems: [MovieItem] = []
+    @Published var watchedListItems: [MovieItem] = []
     
     var moc: NSManagedObjectContext
     init(moc: NSManagedObjectContext) {
@@ -25,6 +28,51 @@ class MovieViewModel: ObservableObject {
     
     func selectSearchItem(id: Int) {
         selectedSearchItem = searchItems.first(where: { $0.id == id })
+    }
+    
+    func addLibraryItem(item: MovieItem) {
+        let movie = Movie(context: moc)
+        movie.id = item.id
+        movie.title = item.title
+        movie.tmdb = item.tmdb
+        movie.type = item.type.rawValue
+        movie.watchState = item.watchState.rawValue
+        movie.details = item.details
+        movie.rating = item.rating
+        movie.poster = item.posterAssetName.pngData()
+        movie.backdrop = item.backdropAssetName.pngData()
+        
+        save()
+        movieItems.append(item)
+    }
+    
+    func save() {
+        if moc.hasChanges {
+            do {
+                try moc.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func fetchItems(movies: FetchedResults<Movie>) {
+        movieItems = movies.map {
+            return MovieItem(
+                id: $0.id ?? UUID(),
+                title: $0.title ?? "Unknown title",
+                tmdb: $0.tmdb,
+                type: ItemType(rawValue: $0.type) ?? ItemType.Unknown,
+                watchState: WatchState(rawValue: $0.watchState) ?? WatchState.Unknown,
+                details: $0.details ?? "No overview available",
+                rating: $0.rating,
+                posterAssetName: UIImage(data: $0.poster ?? Data()) ?? UIImage(),
+                backdropAssetName: UIImage(data: $0.backdrop ?? Data()) ?? UIImage()
+            )
+        }
+        
+        watchlistItems = movieItems.filter { $0.watchState == .WantToWatch }
+        watchedListItems = movieItems.filter { $0.watchState == .Watched }
     }
     
     func search(query: String) async {

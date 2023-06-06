@@ -13,22 +13,64 @@ struct SearchMovieDetail: View {
 
     var body: some View {
         NavigationView {
-            if let movieItem = movieViewModel.selectedSearchItem {
+            if let currentItem = movieViewModel.selectedSearchItem {
                 
-            
                 ScrollView {
                     VStack {
-                        Text(movieItem.title)
+                        Text(currentItem.title)
+                        
+                        HStack {
+                            Text("NOW: \(currentItem.id)")
+                            ForEach(movieViewModel.movieItems) { movie in
+                                Text("\(movie.tmdb)")
+                            }
+                            if(movieViewModel.movieItems.contains(where: { $0.tmdb == currentItem.id})) {
+
+                                //TODO problem with saving currentItem.id
+                                Button("Add to Watchlist") {
+                                    let item: MovieItem = MovieItem(
+                                        title: currentItem.title,
+                                        tmdb: Int16(exactly: currentItem.id) ?? 0,
+                                        type: ItemType.Movie,
+                                        watchState: .WantToWatch,
+                                        details: currentItem.overview,
+                                        rating: currentItem.voteAverage,
+                                        posterAssetName: UIImage(),
+                                        backdropAssetName: UIImage()
+                                    )
+                                    movieViewModel.addLibraryItem(item: item)
+                                }
+                                    .buttonStyle(.borderedProminent)
+                                
+                                Button("Already have seen") {
+                                    let item: MovieItem = MovieItem(
+                                        title: currentItem.title,
+                                        tmdb: Int16(exactly: currentItem.id) ?? 0,
+                                        type: ItemType.Movie,
+                                        watchState: .Watched,
+                                        details: currentItem.overview,
+                                        rating: currentItem.voteAverage,
+                                        posterAssetName: UIImage(),
+                                        backdropAssetName: UIImage()
+                                    )
+                                    movieViewModel.addLibraryItem(item: item)
+                                }
+                                    .buttonStyle(.bordered)
+                            } else {
+                                Button("Remove from Your Library") {
+                                    
+                                }
+                            }
+                        }
                     }
                 }
-            }
-        }
-        
-        .navigationTitle("Detail")
-        .toolbar {
-            ToolbarItemGroup(placement: .navigationBarLeading) {
-                Button("Zavrit") {
-                    detailPresented.toggle()
+                .navigationTitle("Detail")
+                .toolbar {
+                    ToolbarItemGroup(placement: .navigationBarLeading) {
+                        Button("Back") {
+                            detailPresented.toggle()
+                        }
+                    }
                 }
             }
         }

@@ -49,8 +49,13 @@ struct SearchTitleView: View {
                                     Text("\(movie.title)")
                                         .fontWeight(.bold)
                                     Text("\(movie.releaseYear)")
-                                }
+                                    
+                                    Spacer()
+                                    
+                                    Button("Details") {}
+                                }.padding(.all)
                             }
+                            .padding(.vertical)
                             .onTapGesture {
                                 movieViewModel.selectSearchItem(id: movie.id)
                                 detailPresented.toggle()
