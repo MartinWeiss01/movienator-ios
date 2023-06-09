@@ -11,11 +11,37 @@ struct SearchMovieDetail: View {
     @StateObject var movieViewModel: MovieViewModel
     @Binding var detailPresented: Bool
 
+    let offset: CGFloat = -100
+    
     var body: some View {
         NavigationView {
             if let currentItem = movieViewModel.selectedSearchItem {
                 
                 ScrollView {
+                    AsyncImage(url: currentItem.getBackdropURL) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                    } placeholder: {
+                        Color.gray
+                    }
+                    .frame(width: UIScreen.main.bounds.width)
+                    .frame(minHeight: 186)
+                    
+                    AsyncImage(url: currentItem.getPosterURL) { image in
+                              image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 250)
+                                .shadow(radius: 3)
+                                .offset(y: offset)
+                                .zIndex(1)
+                                  
+                          } placeholder: {
+                              Color.gray
+                          }
+                          .frame(width: 250, height: 250)
+                    
                     VStack {
                         Text(currentItem.title)
                             .font(.title)
@@ -90,9 +116,9 @@ struct SearchMovieDetail: View {
                         }
                         .padding(.top, 24)
                     }
-                    .padding(12)
+                    .padding(.horizontal, 12)
+                    .offset(y: offset)
                 }
-                .navigationTitle("Detail")
                 .toolbar {
                     ToolbarItemGroup(placement: .navigationBarLeading) {
                         Button("Back") {

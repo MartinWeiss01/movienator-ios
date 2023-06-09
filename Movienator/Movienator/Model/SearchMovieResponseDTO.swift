@@ -19,9 +19,8 @@ struct SearchResultDetail: Identifiable, Decodable {
     let overview: String
     let voteAverage: Double
     let voteCount: Int
-    let runtime: Int?
     let releaseDate: String?
-    let genres: [ItemGenre]?
+    let genre_ids: [Int64]?
     
     var releaseYear: String {
         guard let releaseDate = self.releaseDate, let date = DateUtils.format.date(from: releaseDate) else {
@@ -43,8 +42,4 @@ struct SearchResultDetail: Identifiable, Decodable {
     var getBackdropURL: URL {
         return URL(string: "https://image.tmdb.org/t/p/w500\(backdropPath ?? "")")!
     }
-}
-
-struct ItemGenre: Decodable {
-    let name: String
 }
