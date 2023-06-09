@@ -18,17 +18,16 @@ struct SearchMovieDetail: View {
                 ScrollView {
                     VStack {
                         Text(currentItem.title)
+                            .font(.title)
                         
                         HStack {
-                            Text("NOW: \(currentItem.id)")
-                            ForEach(movieViewModel.movieItems) { movie in
-                                Text("\(movie.tmdb)")
-                            }
                             
                             if let libraryItem = movieViewModel.movieItems.first(where: { $0.tmdb == currentItem.id}) {
                                 Button("Remove from Your Library") {
                                     movieViewModel.removeLibraryItem(id: libraryItem.id)
                                 }
+                                .buttonStyle(.bordered)
+
                             } else {
                                 Button("Add to Watchlist") {
                                     let item: MovieItem = MovieItem(
@@ -61,7 +60,18 @@ struct SearchMovieDetail: View {
                                     .buttonStyle(.bordered)
                             }
                         }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Overview")
+                                .fontWeight(.bold)
+                                .multilineTextAlignment(.leading)
+                            Text(currentItem.overview)
+                                .multilineTextAlignment(.leading)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 24)
                     }
+                    .padding(12)
                 }
                 .navigationTitle("Detail")
                 .toolbar {
