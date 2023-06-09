@@ -33,7 +33,7 @@ struct SearchMovieDetail: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 250)
-                                .shadow(radius: 3)
+                                .shadow(radius: 20)
                                 .offset(y: offset)
                                 .zIndex(1)
                                   
