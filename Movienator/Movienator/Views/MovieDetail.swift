@@ -11,6 +11,8 @@ struct SearchMovieDetail: View {
     @StateObject var movieViewModel: MovieViewModel
     @Binding var detailPresented: Bool
 
+    @State private var posterImage: UIImage = UIImage()
+    @State private var backdropImage: UIImage = UIImage()
     let offset: CGFloat = -100
     
     var body: some View {
@@ -27,6 +29,14 @@ struct SearchMovieDetail: View {
                     }
                     .frame(width: UIScreen.main.bounds.width)
                     .frame(minHeight: 186)
+                    .onAppear {
+                        Task {
+                            if let backdropData = try? Data(contentsOf: currentItem.getBackdropURL) {
+                                backdropImage = UIImage(data: backdropData) ?? UIImage()
+                            }
+                        }
+                    }
+
                     
                     AsyncImage(url: currentItem.getPosterURL) { image in
                               image
@@ -41,6 +51,13 @@ struct SearchMovieDetail: View {
                               Color.gray
                           }
                           .frame(width: 250, height: 250)
+                          .onAppear {
+                              Task {
+                                  if let posterData = try? Data(contentsOf: currentItem.getPosterURL) {
+                                      posterImage = UIImage(data: posterData) ?? UIImage()
+                                  }
+                              }
+                          }
                     
                     VStack {
                         Text(currentItem.title)
@@ -69,8 +86,8 @@ struct SearchMovieDetail: View {
                                         watchState: .WantToWatch,
                                         details: currentItem.overview,
                                         rating: currentItem.voteAverage,
-                                        posterAssetName: UIImage(),
-                                        backdropAssetName: UIImage()
+                                        posterAssetName: posterImage,
+                                        backdropAssetName: backdropImage
                                     )
                                     movieViewModel.addLibraryItem(item: item)
                                 }
@@ -84,8 +101,8 @@ struct SearchMovieDetail: View {
                                         watchState: .Watched,
                                         details: currentItem.overview,
                                         rating: currentItem.voteAverage,
-                                        posterAssetName: UIImage(),
-                                        backdropAssetName: UIImage()
+                                        posterAssetName: posterImage,
+                                        backdropAssetName: backdropImage
                                     )
                                     movieViewModel.addLibraryItem(item: item)
                                 }

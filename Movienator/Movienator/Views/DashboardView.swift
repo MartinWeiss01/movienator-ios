@@ -15,7 +15,7 @@ struct DashboardView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(alignment: .leading) {
                 Form {
                     Section(content: {
                         TextField("", text: $searchTitle)
@@ -35,24 +35,35 @@ struct DashboardView: View {
                     })
                 }
                 
-                Text("Your Watchlist")
+                GroupTitle(title: "Your Watchlist")
                 ScrollView(.horizontal) {
                     LazyHStack {
+                        Spacer(minLength: 20)
                         ForEach(movieViewModel.watchlistItems) { movie in
-                            Text("\(movie.title)")
+                            Image(uiImage: movie.posterAssetName)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 125)
                         }
+                        Spacer(minLength: 20)
                     }
                 }
                 
-                Text("Your Watched list")
+                GroupTitle(title: "Your Watched list")
                 ScrollView(.horizontal) {
                     LazyHStack {
+                        Spacer(minLength: 20)
                         ForEach(movieViewModel.watchedListItems) { movie in
-                            Text("\(movie.title)")
+                            Image(uiImage: movie.posterAssetName)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 125)
                         }
+                        Spacer(minLength: 20)
                     }
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .onAppear() {
                 movieViewModel.fetchItems(movies: movies)
             }
@@ -68,3 +79,16 @@ struct DashboardView_Previews: PreviewProvider {
     }
 }
 */
+
+struct GroupTitle: View {
+    var title: String
+    
+    var body: some View {
+        Text(title)
+            .font(.title3)
+            .fontWeight(.semibold)
+            .multilineTextAlignment(.leading)
+            .padding(.horizontal, 24)
+            .padding(.top, 24)
+    }
+}
