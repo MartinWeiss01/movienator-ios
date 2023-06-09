@@ -19,6 +19,12 @@ struct SearchMovieDetail: View {
                     VStack {
                         Text(currentItem.title)
                             .font(.title)
+
+                        HStack {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                            Text("\(String(format: "%.1f", currentItem.voteAverage))/10")
+                        }
                         
                         HStack {
                             
@@ -44,7 +50,7 @@ struct SearchMovieDetail: View {
                                 }
                                     .buttonStyle(.borderedProminent)
                                 
-                                Button("Already have seen") {
+                                Button("Already watched") {
                                     let item: MovieItem = MovieItem(
                                         title: currentItem.title,
                                         tmdb: currentItem.id,
@@ -61,14 +67,27 @@ struct SearchMovieDetail: View {
                             }
                         }
                         
-                        VStack(alignment: .leading) {
-                            Text("Overview")
-                                .fontWeight(.bold)
-                                .multilineTextAlignment(.leading)
-                            Text(currentItem.overview)
-                                .multilineTextAlignment(.leading)
+                        VStack {
+                            VStack(alignment: .leading) {
+                                Text("Release")
+                                    .fontWeight(.bold)
+                                    .multilineTextAlignment(.leading)
+                                Text(currentItem.releaseYear)
+                                    .multilineTextAlignment(.leading)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                            Spacer()
+                            
+                            VStack(alignment: .leading) {
+                                Text("Overview")
+                                    .fontWeight(.bold)
+                                    .multilineTextAlignment(.leading)
+                                Text(currentItem.overview)
+                                    .multilineTextAlignment(.leading)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.top, 24)
                     }
                     .padding(12)
