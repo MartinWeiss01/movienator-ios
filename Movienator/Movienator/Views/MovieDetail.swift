@@ -24,9 +24,12 @@ struct SearchMovieDetail: View {
                             ForEach(movieViewModel.movieItems) { movie in
                                 Text("\(movie.tmdb)")
                             }
-                            if(movieViewModel.movieItems.contains(where: { $0.tmdb == currentItem.id})) {
-
-                                //TODO problem with saving currentItem.id
+                            
+                            if let libraryItem = movieViewModel.movieItems.first(where: { $0.tmdb == currentItem.id}) {
+                                Button("Remove from Your Library") {
+                                    movieViewModel.removeLibraryItem(id: libraryItem.id)
+                                }
+                            } else {
                                 Button("Add to Watchlist") {
                                     let item: MovieItem = MovieItem(
                                         title: currentItem.title,
@@ -56,10 +59,6 @@ struct SearchMovieDetail: View {
                                     movieViewModel.addLibraryItem(item: item)
                                 }
                                     .buttonStyle(.bordered)
-                            } else {
-                                Button("Remove from Your Library") {
-                                    
-                                }
                             }
                         }
                     }

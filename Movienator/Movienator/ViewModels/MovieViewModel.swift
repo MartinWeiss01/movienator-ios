@@ -30,6 +30,27 @@ class MovieViewModel: ObservableObject {
         selectedSearchItem = searchItems.first(where: { $0.id == id })
     }
     
+    private func getLibraryItem(with id: UUID) -> Movie? {
+        let request = Movie.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", id.description)
+        guard let items = try? moc.fetch(request) else {
+            return nil
+        }
+        
+        return items.first
+    }
+    
+    func removeLibraryItem(id: UUID) {
+        if let deletedItem = getLibraryItem(with: id) {
+            moc.delete(deletedItem)
+            save()
+            
+            movieItems.removeAll(where: { $0.id == id })
+            watchlistItems.removeAll(where: { $0.id == id })
+            watchedListItems.removeAll(where: { $0.id == id })
+        }
+    }
+    
     func addLibraryItem(item: MovieItem) {
         let movie = Movie(context: moc)
         movie.id = item.id
