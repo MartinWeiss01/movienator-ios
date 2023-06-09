@@ -10,7 +10,7 @@ import SwiftUI
 struct MovieItem: Identifiable {
     var id = UUID()
     var title: String
-    var tmdb: Int16
+    var tmdb: Int64
     var type: ItemType
     var watchState: WatchState
     var details: String

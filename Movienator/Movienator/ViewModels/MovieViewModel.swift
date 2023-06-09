@@ -26,7 +26,7 @@ class MovieViewModel: ObservableObject {
         self.moc = moc
     }
     
-    func selectSearchItem(id: Int) {
+    func selectSearchItem(id: Int64) {
         selectedSearchItem = searchItems.first(where: { $0.id == id })
     }
     

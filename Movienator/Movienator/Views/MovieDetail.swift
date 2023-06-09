@@ -30,7 +30,7 @@ struct SearchMovieDetail: View {
                                 Button("Add to Watchlist") {
                                     let item: MovieItem = MovieItem(
                                         title: currentItem.title,
-                                        tmdb: Int16(exactly: currentItem.id) ?? 0,
+                                        tmdb: currentItem.id,
                                         type: ItemType.Movie,
                                         watchState: .WantToWatch,
                                         details: currentItem.overview,
@@ -45,7 +45,7 @@ struct SearchMovieDetail: View {
                                 Button("Already have seen") {
                                     let item: MovieItem = MovieItem(
                                         title: currentItem.title,
-                                        tmdb: Int16(exactly: currentItem.id) ?? 0,
+                                        tmdb: currentItem.id,
                                         type: ItemType.Movie,
                                         watchState: .Watched,
                                         details: currentItem.overview,

@@ -12,7 +12,7 @@ struct SearchMovieResponseDTO: Decodable {
 }
 
 struct SearchResultDetail: Identifiable, Decodable {
-    let id: Int
+    let id: Int64
     let title: String
     let backdropPath: String?
     let posterPath: String?
