@@ -27,6 +27,20 @@ class APIManager: TMDBService {
         return movieResponse.results
     }
     
+    func searchTVSeries(query: String) async throws -> [SearchTVResultDetail] {
+        guard let url = URL(string: "\(baseAPIURL)/search/tv") else {
+                    throw MovieError.invalidEndpoint
+                }
+        let tvResponse: SearchTVResponseDTO = try await self.loadURLAndDecode(url: url, params: [
+            "language": "en-US",
+            "include_adult": "false",
+            "region": "US",
+            "query": query
+        ])
+
+        return tvResponse.results
+    }
+    
     private func loadURLAndDecode<D: Decodable>(url: URL, params: [String: String]? = nil) async throws -> D {
         guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             throw MovieError.invalidEndpoint
