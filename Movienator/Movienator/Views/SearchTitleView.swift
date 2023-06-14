@@ -68,7 +68,7 @@ struct SearchTitleView: View {
         }
         .onAppear {
             Task {
-                await movieViewModel.search(query: title)
+                await movieViewModel.search(query: title, type: itemType)
             }
         }
         .sheet(isPresented: $detailPresented) {

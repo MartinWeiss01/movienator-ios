@@ -96,7 +96,7 @@ class MovieViewModel: ObservableObject {
         watchedListItems = movieItems.filter { $0.watchState == .Watched }
     }
     
-    func search(query: String) async {
+    func search(query: String, type: ItemType) async {
         isSearching = true
         
         defer {
@@ -110,8 +110,30 @@ class MovieViewModel: ObservableObject {
         }
         
         do {
-            let movies = try await apiManager.searchMovie(query: trimmedQuery)
-            searchItems = movies
+            switch type {
+            case .Movie:
+                let movies = try await apiManager.searchMovie(query: trimmedQuery)
+                searchItems = movies
+            case .TV:
+                let tv = try await apiManager.searchTVSeries(query: trimmedQuery)
+                searchItems = tv.map { tvResult -> SearchResultDetail in
+                    //print(tvResult.first_air_date)
+                    return SearchResultDetail(
+                        id: tvResult.id,
+                        title: tvResult.name,
+                        backdropPath: tvResult.backdropPath,
+                        posterPath: tvResult.posterPath,
+                        overview: tvResult.overview,
+                        voteAverage: tvResult.voteAverage,
+                        voteCount: tvResult.voteCount,
+                        releaseDate: tvResult.firstAirDate,
+                        genre_ids: tvResult.genre_ids
+                    )
+                }
+                //print(searchItems)
+            default:
+                searchItems = []
+            }
         } catch {
             print(error)
         }
