@@ -29,6 +29,17 @@ enum ItemType: Int16, CaseIterable, Identifiable {
     var name: String {
         get { return String(describing: self) }
     }
+    
+    var navigationTitle: String {
+        switch self {
+        case .Unknown:
+            return "Results"
+        case .Movie:
+            return "Found movies"
+        case .TV:
+            return "Found TV series"
+        }
+    }
 }
 
 enum WatchState: Int16, CaseIterable, Identifiable {

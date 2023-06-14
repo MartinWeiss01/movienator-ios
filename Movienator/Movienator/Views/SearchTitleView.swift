@@ -11,6 +11,7 @@ import SwiftUI
 struct SearchTitleView: View {
     @StateObject var movieViewModel: MovieViewModel
     @State var title: String
+    @State var itemType: ItemType = .Movie
 
     @State private var detailPresented: Bool = false
     
@@ -76,7 +77,7 @@ struct SearchTitleView: View {
                 detailPresented: $detailPresented
             )
         }
-        .navigationTitle("Found movies")
+        .navigationTitle(itemType.navigationTitle)
     }
 }
 /*
