@@ -74,7 +74,8 @@ struct SearchTitleView: View {
         .sheet(isPresented: $detailPresented) {
             SearchMovieDetail(
                 movieViewModel: movieViewModel,
-                detailPresented: $detailPresented
+                detailPresented: $detailPresented,
+                itemType: itemType
             )
         }
         .navigationTitle(itemType.navigationTitle)

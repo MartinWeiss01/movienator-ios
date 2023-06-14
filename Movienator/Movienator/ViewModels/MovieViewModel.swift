@@ -20,6 +20,7 @@ class MovieViewModel: ObservableObject {
     @Published var movieItems: [MovieItem] = []
     @Published var watchlistItems: [MovieItem] = []
     @Published var watchedListItems: [MovieItem] = []
+    @Published var selectedLibraryItem: MovieItem?
     
     var moc: NSManagedObjectContext
     init(moc: NSManagedObjectContext) {
@@ -28,6 +29,10 @@ class MovieViewModel: ObservableObject {
     
     func selectSearchItem(id: Int64) {
         selectedSearchItem = searchItems.first(where: { $0.id == id })
+    }
+    
+    func selectLibraryItem(id: UUID) {
+        selectedLibraryItem = movieItems.first(where: { $0.id == id })
     }
     
     private func getLibraryItem(with id: UUID) -> Movie? {
@@ -62,6 +67,9 @@ class MovieViewModel: ObservableObject {
         movie.rating = item.rating
         movie.poster = item.posterAssetName.pngData()
         movie.backdrop = item.backdropAssetName.pngData()
+        movie.releaseDate = item.releaseDate
+        movie.added = Date()
+        
         
         save()
         movieItems.append(item)
@@ -88,7 +96,9 @@ class MovieViewModel: ObservableObject {
                 details: $0.details ?? "No overview available",
                 rating: $0.rating,
                 posterAssetName: UIImage(data: $0.poster ?? Data()) ?? UIImage(),
-                backdropAssetName: UIImage(data: $0.backdrop ?? Data()) ?? UIImage()
+                backdropAssetName: UIImage(data: $0.backdrop ?? Data()) ?? UIImage(),
+                releaseDate: $0.releaseDate ?? "N/A",
+                added: $0.added ?? Date()
             )
         }
         

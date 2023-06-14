@@ -17,6 +17,8 @@ struct MovieItem: Identifiable {
     var rating: Double
     var posterAssetName: UIImage
     var backdropAssetName: UIImage
+    var releaseDate: String
+    var added: Date
 }
 
 enum ItemType: Int16, CaseIterable, Identifiable {

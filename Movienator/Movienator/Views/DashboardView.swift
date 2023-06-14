@@ -11,6 +11,8 @@ struct DashboardView: View {
     @StateObject var movieViewModel: MovieViewModel
     @FetchRequest(sortDescriptors: []) var movies: FetchedResults<Movie>
     
+    @State private var libraryDetailPresented: Bool = false
+    
     @State var searchTitle: String = ""
     @State private var selectedType: ItemType = .Movie
     
@@ -78,6 +80,10 @@ struct DashboardView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 125)
+                                    .onTapGesture {
+                                        movieViewModel.selectLibraryItem(id: movie.id)
+                                        libraryDetailPresented.toggle()
+                                    }
                             }
                             Spacer(minLength: 20)
                         }
@@ -92,6 +98,10 @@ struct DashboardView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 125)
+                                    .onTapGesture {
+                                        movieViewModel.selectLibraryItem(id: movie.id)
+                                        libraryDetailPresented.toggle()
+                                    }
                             }
                             Spacer(minLength: 20)
                         }
@@ -101,6 +111,9 @@ struct DashboardView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .onAppear() {
                 movieViewModel.fetchItems(movies: movies)
+            }
+            .sheet(isPresented: $libraryDetailPresented) {
+                LibraryDetail(movieViewModel: movieViewModel, detailPresented: $libraryDetailPresented)
             }
             .navigationTitle("Movienator")
         }

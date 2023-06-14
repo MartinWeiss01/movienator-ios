@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8315988B2A39BB7700AB2D72 /* LibraryDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8315988A2A39BB7700AB2D72 /* LibraryDetail.swift */; };
 		832221992A0B9B8100BCEE90 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832221982A0B9B8100BCEE90 /* DashboardView.swift */; };
 		8322219B2A0B9C5700BCEE90 /* SearchTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8322219A2A0B9C5700BCEE90 /* SearchTitleView.swift */; };
 		8322219E2A0BA0A100BCEE90 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8322219D2A0BA0A100BCEE90 /* APIManager.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8315988A2A39BB7700AB2D72 /* LibraryDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryDetail.swift; sourceTree = "<group>"; };
 		832221982A0B9B8100BCEE90 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		8322219A2A0B9C5700BCEE90 /* SearchTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTitleView.swift; sourceTree = "<group>"; };
 		8322219D2A0BA0A100BCEE90 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				832221982A0B9B8100BCEE90 /* DashboardView.swift */,
 				8322219A2A0B9C5700BCEE90 /* SearchTitleView.swift */,
 				8369BC282A29E90A005D996D /* MovieDetail.swift */,
+				8315988A2A39BB7700AB2D72 /* LibraryDetail.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 			files = (
 				832221A02A0BA32100BCEE90 /* Router.swift in Sources */,
 				838988BA29FABA260089DA91 /* GenreItem.swift in Sources */,
+				8315988B2A39BB7700AB2D72 /* LibraryDetail.swift in Sources */,
 				832221992A0B9B8100BCEE90 /* DashboardView.swift in Sources */,
 				8369BC1D2A29CEFD005D996D /* TMDBService.swift in Sources */,
 				8322219E2A0BA0A100BCEE90 /* APIManager.swift in Sources */,
