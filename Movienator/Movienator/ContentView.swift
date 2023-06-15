@@ -20,7 +20,7 @@ struct ContentView: View {
                 }
                 .tag(0)
             
-            StatsView()
+            StatsView(movieViewModel: movieViewModel)
                 .tabItem {
                     Image(systemName: "chart.bar.fill")
                     Text("Stats")

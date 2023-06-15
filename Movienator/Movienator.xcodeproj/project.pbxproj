@@ -16,6 +16,7 @@
 		835195A22A3AEDF800C3BCF5 /* EmptyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835195A12A3AEDF800C3BCF5 /* EmptyList.swift */; };
 		835195A42A3AF4A000C3BCF5 /* LibraryScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835195A32A3AF4A000C3BCF5 /* LibraryScrollView.swift */; };
 		835195A72A3AF9C400C3BCF5 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835195A62A3AF9C400C3BCF5 /* StatsView.swift */; };
+		835195AD2A3B003A00C3BCF5 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 835195AC2A3B003A00C3BCF5 /* SwiftUICharts */; };
 		8369BC1D2A29CEFD005D996D /* TMDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369BC1C2A29CEFD005D996D /* TMDBService.swift */; };
 		8369BC212A29D15E005D996D /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369BC202A29D15E005D996D /* DateUtils.swift */; };
 		8369BC232A29D1DF005D996D /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369BC222A29D1DF005D996D /* JSONUtils.swift */; };
@@ -64,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				835195AD2A3B003A00C3BCF5 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +198,9 @@
 			dependencies = (
 			);
 			name = Movienator;
+			packageProductDependencies = (
+				835195AC2A3B003A00C3BCF5 /* SwiftUICharts */,
+			);
 			productName = Movienator;
 			productReference = 8389889D29FAAE560089DA91 /* Movienator.app */;
 			productType = "com.apple.product-type.application";
@@ -224,6 +229,9 @@
 				Base,
 			);
 			mainGroup = 8389889429FAAE560089DA91;
+			packageReferences = (
+				835195AB2A3B003A00C3BCF5 /* XCRemoteSwiftPackageReference "ChartView" */,
+			);
 			productRefGroup = 8389889E29FAAE560089DA91 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -469,6 +477,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		835195AB2A3B003A00C3BCF5 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		835195AC2A3B003A00C3BCF5 /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 835195AB2A3B003A00C3BCF5 /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		838988B129FAAFC80089DA91 /* Movienator.xcdatamodeld */ = {
