@@ -72,39 +72,23 @@ struct DashboardView: View {
                     .background(Color(UIColor.secondarySystemBackground))
                     
                     GroupTitle(title: "Your Watchlist")
-                    ScrollView(.horizontal) {
-                        HStack {
-                            Spacer(minLength: 20)
-                            ForEach(movieViewModel.watchlistItems) { movie in
-                                Image(uiImage: movie.posterAssetName)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 125)
-                                    .onTapGesture {
-                                        movieViewModel.selectLibraryItem(id: movie.id)
-                                        libraryDetailPresented.toggle()
-                                    }
-                            }
-                            Spacer(minLength: 20)
-                        }
+                    if movieViewModel.watchlistItems.isEmpty {
+                        EmptyList()
+                    } else {
+                        LibraryScrollView(movies: movieViewModel.watchlistItems, onTapMovie: { movie in
+                            movieViewModel.selectLibraryItem(id: movie.id)
+                            libraryDetailPresented.toggle()
+                        })
                     }
                     
                     GroupTitle(title: "Your Watched list")
-                    ScrollView(.horizontal) {
-                        HStack {
-                            Spacer(minLength: 20)
-                            ForEach(movieViewModel.watchedListItems) { movie in
-                                Image(uiImage: movie.posterAssetName)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 125)
-                                    .onTapGesture {
-                                        movieViewModel.selectLibraryItem(id: movie.id)
-                                        libraryDetailPresented.toggle()
-                                    }
-                            }
-                            Spacer(minLength: 20)
-                        }
+                    if movieViewModel.watchedListItems.isEmpty {
+                        EmptyList()
+                    } else {
+                        LibraryScrollView(movies: movieViewModel.watchedListItems, onTapMovie: { movie in
+                            movieViewModel.selectLibraryItem(id: movie.id)
+                            libraryDetailPresented.toggle()
+                        })
                     }
                 }
             }
