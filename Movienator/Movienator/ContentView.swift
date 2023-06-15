@@ -9,9 +9,25 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var movieViewModel: MovieViewModel
+    @State private var selectedScreen = 0
     
     var body: some View {
-        DashboardView(movieViewModel: movieViewModel)
+        TabView(selection: $selectedScreen) {
+            DashboardView(movieViewModel: movieViewModel)
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Dashboard")
+                }
+                .tag(0)
+            
+            StatsView()
+                .tabItem {
+                    Image(systemName: "chart.bar.fill")
+                    Text("Stats")
+                }
+                .tag(2)
+        }
+        
     }
 }
 
