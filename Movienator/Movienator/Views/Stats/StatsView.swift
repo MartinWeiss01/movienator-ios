@@ -39,6 +39,23 @@ struct StatsView: View {
                             form: ChartForm.medium
                         )
                     }
+                    
+                    Spacer()
+                    
+                    let ratingData = getRatingData()
+                    
+                    HStack {
+                        BarChartView(
+                            data: ChartData(values: ratingData),
+                            title: "Ratings",
+                            style: Styles.barChartStyleNeonBlueLight,
+                            form: ChartForm.extraLarge,
+                            dropShadow: false,
+                            cornerImage: Image(systemName: "star.fill"),
+                            valueSpecifier: "%.0f× in your library"
+                        )
+                    }
+                    .padding(.vertical, 12)
                 }
                 .padding(.vertical, 12)
             }
@@ -57,7 +74,7 @@ struct StatsView: View {
     }
     
     private func getLibraryItemTypeLegend(typeData: [LibraryTypeChartObject]) -> String {
-        let legend = typeData.map { "\($0.name): \(Int($0.count))" }.joined(separator: "\n")
+        let legend = typeData.map { "\($0.name): \(Int($0.count))×" }.joined(separator: "\n")
         return legend
     }
     
@@ -72,7 +89,18 @@ struct StatsView: View {
     }
 
     private func getWatchStateLegend(watchStateData: [LibraryTypeChartObject]) -> String {
-        let legend = watchStateData.map { "\($0.name): \(Int($0.count))" }.joined(separator: "\n")
+        let legend = watchStateData.map { "\($0.name): \(Int($0.count))×" }.joined(separator: "\n")
         return legend
+    }
+    
+    private func getRatingData() -> [(String, Int)] {
+        let data = (0...10).map { rating in
+            let count = movieViewModel.movieItems.reduce(0) { result, movieItem in
+                let roundedRating = movieItem.rating.rounded(.down)
+                return result + (roundedRating == Double(rating) ? 1 : 0)
+            }
+            return ("\(rating)/10", count)
+        }
+        return data
     }
 }

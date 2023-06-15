@@ -13,4 +13,10 @@ class DateUtils {
         formatter.dateFormat = "yyyy-mm-dd"
         return formatter
     }()
+    
+    static func stringFromDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-mm-dd"
+        return formatter.string(from: date)
+    }
 }
