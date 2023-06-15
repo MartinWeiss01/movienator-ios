@@ -24,7 +24,7 @@ struct SearchResultDetail: Identifiable, Decodable {
     let voteAverage: Double
     let voteCount: Int
     let releaseDate: String?
-    let genre_ids: [Int64]?
+    let genreIds: [Int64]?
     
     var releaseYear: String {
         guard let releaseDate = self.releaseDate, let date = DateUtils.format.date(from: releaseDate) else {
@@ -57,7 +57,7 @@ struct SearchTVResultDetail: Identifiable, Decodable {
     let voteAverage: Double
     let voteCount: Int
     let firstAirDate: String?
-    let genre_ids: [Int64]?
+    let genreIds: [Int64]?
     
     var releaseYear: String {
         guard let releaseDate = self.firstAirDate, let date = DateUtils.format.date(from: releaseDate) else {

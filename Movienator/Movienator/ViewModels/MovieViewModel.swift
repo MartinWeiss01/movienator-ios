@@ -145,7 +145,7 @@ class MovieViewModel: ObservableObject {
                         voteAverage: tvResult.voteAverage,
                         voteCount: tvResult.voteCount,
                         releaseDate: tvResult.firstAirDate,
-                        genre_ids: tvResult.genre_ids
+                        genreIds: tvResult.genreIds
                     )
                 }
                 //print(searchItems)
