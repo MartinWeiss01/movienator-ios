@@ -20,15 +20,27 @@ struct StatsView: View {
         NavigationView {
             ScrollView {
                 LazyVStack {
-                    let typeData = getLibraryItemTypeData()
-                    PieChartView(
-                        data: typeData.map { $0.count },
-                        title: "Movies vs TV Shows",
-                        legend: getLibraryItemTypeLegend(typeData: typeData),
-                        style: Styles.barChartMidnightGreenDark,
-                        form: ChartForm.large
-                    )
+                    HStack {
+                        let typeData = getLibraryItemTypeData()
+                        PieChartView(
+                            data: typeData.map { $0.count },
+                            title: "Library Items",
+                            legend: getLibraryItemTypeLegend(typeData: typeData),
+                            style: Styles.barChartMidnightGreenDark,
+                            form: ChartForm.medium
+                        )
+                        
+                        let watchStateData = getWatchStateData()
+                        PieChartView(
+                            data: watchStateData.map { $0.count },
+                            title: "Watch State",
+                            legend: getWatchStateLegend(watchStateData: watchStateData),
+                            style: Styles.barChartStyleNeonBlueDark,
+                            form: ChartForm.medium
+                        )
+                    }
                 }
+                .padding(.vertical, 12)
             }
             .navigationTitle("Your Statistics")
         }
@@ -46,6 +58,21 @@ struct StatsView: View {
     
     private func getLibraryItemTypeLegend(typeData: [LibraryTypeChartObject]) -> String {
         let legend = typeData.map { "\($0.name): \(Int($0.count))" }.joined(separator: "\n")
+        return legend
+    }
+    
+    private func getWatchStateData() -> [LibraryTypeChartObject] {
+        let wantToWatchCount = Double(movieViewModel.movieItems.filter { $0.watchState == .WantToWatch }.count)
+        let watchedCount = Double(movieViewModel.movieItems.filter { $0.watchState == .Watched }.count)
+
+        let wantToWatchObject = LibraryTypeChartObject(name: "Watchlist", count: wantToWatchCount)
+        let watchedObject = LibraryTypeChartObject(name: "Watched list", count: watchedCount)
+
+        return [wantToWatchObject, watchedObject]
+    }
+
+    private func getWatchStateLegend(watchStateData: [LibraryTypeChartObject]) -> String {
+        let legend = watchStateData.map { "\($0.name): \(Int($0.count))" }.joined(separator: "\n")
         return legend
     }
 }
