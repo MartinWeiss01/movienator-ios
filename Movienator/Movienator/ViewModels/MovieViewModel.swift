@@ -73,6 +73,14 @@ class MovieViewModel: ObservableObject {
         
         save()
         movieItems.append(item)
+        switch item.watchState {
+            case .WantToWatch:
+                watchlistItems.append(item)
+            case .Watched:
+                watchedListItems.append(item)
+            default:
+                break
+        }
     }
     
     func save() {
