@@ -23,12 +23,16 @@ struct LibraryDetail: View {
             if let currentItem = movieViewModel.selectedLibraryItem {
                 
                 ScrollView {
-                    Image(uiImage: currentItem.backdropAssetName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: UIScreen.main.bounds.width)
-                        .frame(minHeight: 186)
-                    
+                    if currentItem.backdropAssetName.pngData() != UIImage().pngData() {
+                        Image(uiImage: currentItem.backdropAssetName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: UIScreen.main.bounds.width)
+                            .frame(minHeight: 186)
+                    } else {
+                        Color.gray
+                            .frame(width: UIScreen.main.bounds.width, height: 186)
+                    }
                     Image(uiImage: currentItem.posterAssetName)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -72,7 +76,7 @@ struct LibraryDetail: View {
                                         rating: movieItem!.rating,
                                         posterAssetName: posterImage,
                                         backdropAssetName: backdropImage,
-                                        releaseDate: movieItem!.releaseDate ?? "N/A",
+                                        releaseDate: movieItem!.releaseDate,
                                         added: Date()
                                     )
                                     movieViewModel.addLibraryItem(item: item)
@@ -90,7 +94,7 @@ struct LibraryDetail: View {
                                         rating: movieItem!.rating,
                                         posterAssetName: posterImage,
                                         backdropAssetName: backdropImage,
-                                        releaseDate: movieItem!.releaseDate ?? "N/A",
+                                        releaseDate: movieItem!.releaseDate,
                                         added: Date()
                                     )
                                     movieViewModel.addLibraryItem(item: item)
