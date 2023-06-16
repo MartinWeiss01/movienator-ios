@@ -70,37 +70,11 @@ struct DiscoverView: View {
                                     } else {
                                         List(movieViewModel.searchItems) { movie in
                                             if(true) {
-                                                HStack(alignment: .top) {
-                                                    AsyncImage(url: movie.getPosterURL) { phase in
-                                                        switch phase {
-                                                        case .empty:
-                                                            // Placeholder
-                                                            MoviePosterPlaceholder()
-                                                        case .success(let image):
-                                                            // Obrázek načtený úspěšně
-                                                            image
-                                                                .resizable()
-                                                                .aspectRatio(contentMode: .fit)
-                                                                .frame(width: 100)
-                                                        case .failure:
-                                                            // Chyba při načítání obrázku
-                                                            MoviePosterPlaceholder()
-                                                        @unknown default:
-                                                            // Neznámý stav
-                                                            EmptyView()
-                                                        }
-                                                    }
-                                                    
-                                                    VStack(alignment: .leading) {
-                                                        Text("\(movie.title)")
-                                                            .fontWeight(.bold)
-                                                        Text("\(movie.releaseYear)")
-                                                        
-                                                        Spacer()
-                                                        
-                                                        Button("Details") {}
-                                                    }.padding(.all)
-                                                }
+                                                ListItem(
+                                                    title: movie.title,
+                                                    releaseYear: movie.releaseYear,
+                                                    posterURL: movie.getPosterURL
+                                                )
                                                 .padding(.vertical)
                                                 .onTapGesture {
                                                     movieViewModel.selectSearchItem(id: movie.id)
