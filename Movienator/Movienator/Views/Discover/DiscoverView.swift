@@ -9,11 +9,10 @@ import SwiftUI
 
 struct DiscoverView: View {
     @StateObject var movieViewModel: MovieViewModel
-    let DEFAULT_UUID = UUID(uuidString: "98EA8B7A-6666-6666-6666-25E6A9EB8824")!
+    let DEFAULT_TMDB: Int64 = 0
     
     @State private var selectedType: ItemType = .Movie
-    @State private var selectedItemUUID: UUID = UUID(uuidString: "98EA8B7A-6666-6666-6666-25E6A9EB8824")!
-    
+    @State private var selectedTMDBID: Int64 = 0
 
     var body: some View {
         NavigationView {
@@ -28,13 +27,13 @@ struct DiscoverView: View {
                             }
                             .pickerStyle(SegmentedPickerStyle())
                             .onChange(of: selectedType) { newVal in
-                                selectedItemUUID = DEFAULT_UUID
+                                selectedTMDBID = DEFAULT_TMDB
                             }
                             
-                            Picker("Similar to", selection: $selectedItemUUID) {
-                                Text("None").tag(DEFAULT_UUID)
+                            Picker("Similar to", selection: $selectedTMDBID) {
+                                Text("None").tag(DEFAULT_TMDB)
                                 ForEach(movieViewModel.movieItems.filter { $0.type == selectedType }) { movieItem in
-                                    Text(movieItem.title).tag(movieItem.id)
+                                    Text(movieItem.title).tag(movieItem.tmdb)
                                 }
                             }
                         },
@@ -43,9 +42,11 @@ struct DiscoverView: View {
                         },
                         footer: {
                             Button("Find") {
-                                print("\(selectedItemUUID)")
+                                Task {
+                                    await movieViewModel.discover(tmdbId: selectedTMDBID, type: selectedType)
+                                }
                             }
-                            .disabled(selectedItemUUID == DEFAULT_UUID)
+                            .disabled(selectedTMDBID == DEFAULT_TMDB)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical)
                         }

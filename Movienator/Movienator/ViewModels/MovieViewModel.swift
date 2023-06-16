@@ -155,44 +155,47 @@ class MovieViewModel: ObservableObject {
         } catch {
             print(error)
         }
-        
-    }
-    /*
-    func convertSearchResponseToMovieItem(response: SearchMovieResponseDTO) -> [MovieItem]? {
-        let coordinatesSplit = response.results.
-
-        let latitude = Double(coordinatesSplit.first ?? "")
-        let longitude = Double(coordinatesSplit.last ?? "")
-
-        guard
-            let latitude,
-            let longitude
-        else {
-            return nil
-        }
-        
-        return MapItem(
-            name: "IP \(response.region)",
-            style: .Modern,
-            imageAssetName: UIImage(),
-            coordinates: CLLocationCoordinate2D(
-                latitude: latitude,
-                longitude: longitude
-            ),
-            locationType: .House
-        )
     }
     
-    func searchMovies(title: String) async throws {
+    func discover(tmdbId: Int64, type: ItemType) async {
         isSearching = true
         
         defer {
             isSearching = false
         }
         
-        let searchMovieResponseDTO: SearchMovieResponseDTO = try await apiManager.request(SearchRouter.movie(title: title))
+        guard tmdbId > 0 else {
+            return
+        }
         
-        guard let resultItems = con
+        do {
+            switch type {
+            case .Movie:
+                let movies = try await apiManager.discoverMovie(tmdbId: tmdbId)
+                searchItems = movies
+                print(searchItems)
+            case .TV:
+                let tv = try await apiManager.discoverTVSeries(tmdbId: tmdbId)
+                searchItems = tv.map { tvResult -> SearchResultDetail in
+                    //print(tvResult.first_air_date)
+                    return SearchResultDetail(
+                        id: tvResult.id,
+                        title: tvResult.name,
+                        backdropPath: tvResult.backdropPath,
+                        posterPath: tvResult.posterPath,
+                        overview: tvResult.overview,
+                        voteAverage: tvResult.voteAverage,
+                        voteCount: tvResult.voteCount,
+                        releaseDate: tvResult.firstAirDate,
+                        genreIds: tvResult.genreIds
+                    )
+                }
+                print(searchItems)
+            default:
+                searchItems = []
+            }
+        } catch {
+            print(error)
+        }
     }
-     */
 }
