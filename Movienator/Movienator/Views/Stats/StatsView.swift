@@ -47,8 +47,8 @@ struct StatsView: View {
                     HStack {
                         BarChartView(
                             data: ChartData(values: ratingData),
-                            title: "Ratings",
-                            style: Styles.barChartStyleNeonBlueLight,
+                            title: "Frequency of Ratings in Your Library",
+                            style: Styles.barChartStyleOrangeDark,
                             form: ChartForm.extraLarge,
                             dropShadow: false,
                             cornerImage: Image(systemName: "star.fill"),
