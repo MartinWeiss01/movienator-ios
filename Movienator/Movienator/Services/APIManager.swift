@@ -8,7 +8,7 @@
 import Foundation
 
 class APIManager: TMDBService {
-    private let apiKey = "APIKEY"
+    private let apiKey = "2bfe8a9fe7b131bc521523d404e2c9c5"
     private let baseAPIURL = "https://api.themoviedb.org/3"
     private let urlSession = URLSession.shared
     private let jsonDecoder = JSONUtils.decoder
@@ -27,6 +27,17 @@ class APIManager: TMDBService {
         return movieResponse.results
     }
     
+    func discoverMovie(tmdbId: Int64) async throws -> [SearchResultDetail] {
+        guard let url = URL(string: "\(baseAPIURL)/movie/\(tmdbId)/recommendations") else {
+                    throw MovieError.invalidEndpoint
+                }
+        let movieResponse: SearchMovieResponseDTO = try await self.loadURLAndDecode(url: url, params: [
+            "language": "en-US"
+        ])
+        
+        return movieResponse.results
+    }
+    
     func searchTVSeries(query: String) async throws -> [SearchTVResultDetail] {
         guard let url = URL(string: "\(baseAPIURL)/search/tv") else {
                     throw MovieError.invalidEndpoint
@@ -36,6 +47,17 @@ class APIManager: TMDBService {
             "include_adult": "false",
             "region": "US",
             "query": query
+        ])
+
+        return tvResponse.results
+    }
+    
+    func discoverTVSeries(tmdbId: Int64) async throws -> [SearchTVResultDetail] {
+        guard let url = URL(string: "\(baseAPIURL)/tv/\(tmdbId)/recommendations") else {
+                    throw MovieError.invalidEndpoint
+                }
+        let tvResponse: SearchTVResponseDTO = try await self.loadURLAndDecode(url: url, params: [
+            "language": "en-US"
         ])
 
         return tvResponse.results
