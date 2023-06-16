@@ -20,6 +20,13 @@ struct ContentView: View {
                 }
                 .tag(0)
             
+            DiscoverView(movieViewModel: movieViewModel)
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                    Text("Discover")
+                }
+                .tag(1)
+            
             StatsView(movieViewModel: movieViewModel)
                 .tabItem {
                     Image(systemName: "chart.bar.fill")

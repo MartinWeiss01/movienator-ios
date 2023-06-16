@@ -31,6 +31,7 @@
 		838988B629FAB7C70089DA91 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838988B529FAB7C70089DA91 /* MovieViewModel.swift */; };
 		838988B829FAB8020089DA91 /* MovieItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838988B729FAB8020089DA91 /* MovieItem.swift */; };
 		838988BA29FABA260089DA91 /* GenreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838988B929FABA260089DA91 /* GenreItem.swift */; };
+		83F8AA452A3C3E0200447827 /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F8AA442A3C3E0200447827 /* DiscoverView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		838988B529FAB7C70089DA91 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
 		838988B729FAB8020089DA91 /* MovieItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieItem.swift; sourceTree = "<group>"; };
 		838988B929FABA260089DA91 /* GenreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreItem.swift; sourceTree = "<group>"; };
+		83F8AA442A3C3E0200447827 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 		832221972A0B9B6300BCEE90 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				83F8AA432A3C3DF200447827 /* Discover */,
 				835195A52A3AF9B200C3BCF5 /* Stats */,
 				8369BC252A29E72A005D996D /* Elements */,
 				832221982A0B9B8100BCEE90 /* DashboardView.swift */,
@@ -182,6 +185,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		83F8AA432A3C3DF200447827 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				83F8AA442A3C3E0200447827 /* DiscoverView.swift */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -271,6 +282,7 @@
 				8369BC272A29E73C005D996D /* MoviePosterPlaceholder.swift in Sources */,
 				8369BC232A29D1DF005D996D /* JSONUtils.swift in Sources */,
 				838988A129FAAE560089DA91 /* MovienatorApp.swift in Sources */,
+				83F8AA452A3C3E0200447827 /* DiscoverView.swift in Sources */,
 				832221A22A0BA48500BCEE90 /* SearchMovieResponseDTO.swift in Sources */,
 				835195A42A3AF4A000C3BCF5 /* LibraryScrollView.swift in Sources */,
 				838988B829FAB8020089DA91 /* MovieItem.swift in Sources */,
