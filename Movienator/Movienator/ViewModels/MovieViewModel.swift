@@ -172,11 +172,15 @@ class MovieViewModel: ObservableObject {
             switch type {
             case .Movie:
                 let movies = try await apiManager.discoverMovie(tmdbId: tmdbId)
-                searchItems = movies
-                print(searchItems)
+                searchItems = movies.filter { movie in
+                    !movieItems.contains { $0.tmdb == movie.id }
+                }
+                //print(searchItems)
             case .TV:
                 let tv = try await apiManager.discoverTVSeries(tmdbId: tmdbId)
-                searchItems = tv.map { tvResult -> SearchResultDetail in
+                searchItems = tv.filter { tvResult in
+                    !movieItems.contains { $0.tmdb == tvResult.id }
+                }.map { tvResult -> SearchResultDetail in
                     //print(tvResult.first_air_date)
                     return SearchResultDetail(
                         id: tvResult.id,
@@ -190,7 +194,7 @@ class MovieViewModel: ObservableObject {
                         genreIds: tvResult.genreIds
                     )
                 }
-                print(searchItems)
+                //print(searchItems)
             default:
                 searchItems = []
             }
