@@ -68,6 +68,7 @@ struct LibraryDetail: View {
                             } else {
                                 Button("Add to Watchlist") {
                                     let item: MovieItem = MovieItem(
+                                        id: movieItem!.id,
                                         title: movieItem!.title,
                                         tmdb: movieItem!.tmdb,
                                         type: movieItem!.type,
@@ -86,6 +87,7 @@ struct LibraryDetail: View {
                                 
                                 Button("Already watched") {
                                     let item: MovieItem = MovieItem(
+                                        id: movieItem!.id,
                                         title: movieItem!.title,
                                         tmdb: movieItem!.tmdb,
                                         type: movieItem!.type,
