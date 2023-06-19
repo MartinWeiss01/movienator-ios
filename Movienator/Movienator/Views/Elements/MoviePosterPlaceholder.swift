@@ -9,10 +9,10 @@ import SwiftUI
 
 struct MoviePosterPlaceholder: View {
     let imageWidth: CGFloat = 100
-    let imageHeight: CGFloat = 186
+    let imageHeight: CGFloat = 160
     
     var body: some View {
-        Rectangle().fill(.gray)
+        Rectangle().fill(Color(UIColor.secondarySystemBackground))
             .frame(width: imageWidth, height: imageHeight)
             .cornerRadius(5)
     }
