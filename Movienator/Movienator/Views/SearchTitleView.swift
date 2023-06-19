@@ -21,7 +21,7 @@ struct SearchTitleView: View {
                 ProgressView()
             } else {
                 if(movieViewModel.searchItems.isEmpty) {
-                    Text("No matches")
+                    EmptyList(text: "No results found")
                 } else {
                     List(movieViewModel.searchItems) { movie in
                         if(movie.releaseYear != "N/A" && movie.posterPath != nil) {

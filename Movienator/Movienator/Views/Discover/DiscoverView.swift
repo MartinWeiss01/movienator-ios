@@ -66,7 +66,7 @@ struct DiscoverView: View {
                                         .padding(.vertical, 12)
                                     
                                     if(movieViewModel.searchItems.isEmpty) {
-                                        Text("No matches")
+                                        EmptyList(text: "No results found")
                                     } else {
                                         List(movieViewModel.searchItems) { movie in
                                             if(true) {
