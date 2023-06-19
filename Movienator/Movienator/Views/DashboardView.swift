@@ -19,7 +19,7 @@ struct DashboardView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-
+                
                 VStack(alignment: .leading) {
                     VStack {
                         Section(content: {
@@ -105,12 +105,12 @@ struct DashboardView: View {
 }
 
 /*
-struct DashboardView_Previews: PreviewProvider {
-    static var previews: some View {
-        DashboardView()
-    }
-}
-*/
+ struct DashboardView_Previews: PreviewProvider {
+ static var previews: some View {
+ DashboardView()
+ }
+ }
+ */
 
 struct GroupTitle: View {
     var title: String

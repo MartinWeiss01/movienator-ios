@@ -10,7 +10,7 @@ import SwiftUI
 struct LibraryDetail: View {
     @StateObject var movieViewModel: MovieViewModel
     @Binding var detailPresented: Bool
-
+    
     @State private var posterImage: UIImage = UIImage()
     @State private var backdropImage: UIImage = UIImage()
     let offset: CGFloat = -100
@@ -46,7 +46,7 @@ struct LibraryDetail: View {
                         Text(currentItem.title)
                             .font(.title)
                             .multilineTextAlignment(.center)
-
+                        
                         HStack {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
@@ -64,7 +64,7 @@ struct LibraryDetail: View {
                                     removedItem = true
                                 }
                                 .buttonStyle(.bordered)
-
+                                
                             } else {
                                 Button("Add to Watchlist") {
                                     let item: MovieItem = MovieItem(
@@ -83,7 +83,7 @@ struct LibraryDetail: View {
                                     movieViewModel.addLibraryItem(item: item)
                                     removedItem = false
                                 }
-                                    .buttonStyle(.borderedProminent)
+                                .buttonStyle(.borderedProminent)
                                 
                                 Button("Already watched") {
                                     let item: MovieItem = MovieItem(
@@ -102,7 +102,7 @@ struct LibraryDetail: View {
                                     movieViewModel.addLibraryItem(item: item)
                                     removedItem = false
                                 }
-                                    .buttonStyle(.bordered)
+                                .buttonStyle(.bordered)
                             }
                         }
                         
@@ -115,7 +115,7 @@ struct LibraryDetail: View {
                                     .multilineTextAlignment(.leading)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        
+                            
                             Spacer()
                             
                             
@@ -127,7 +127,7 @@ struct LibraryDetail: View {
                                     .multilineTextAlignment(.leading)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        
+                            
                             Spacer()
                             
                             VStack(alignment: .leading) {

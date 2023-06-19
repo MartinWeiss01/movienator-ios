@@ -15,8 +15,8 @@ class APIManager: TMDBService {
     
     func searchMovie(query: String) async throws -> [SearchResultDetail] {
         guard let url = URL(string: "\(baseAPIURL)/search/movie") else {
-                    throw MovieError.invalidEndpoint
-                }
+            throw MovieError.invalidEndpoint
+        }
         let movieResponse: SearchMovieResponseDTO = try await self.loadURLAndDecode(url: url, params: [
             "language": "en-US",
             "include_adult": "false",
@@ -29,8 +29,8 @@ class APIManager: TMDBService {
     
     func discoverMovie(tmdbId: Int64) async throws -> [SearchResultDetail] {
         guard let url = URL(string: "\(baseAPIURL)/movie/\(tmdbId)/recommendations") else {
-                    throw MovieError.invalidEndpoint
-                }
+            throw MovieError.invalidEndpoint
+        }
         let movieResponse: SearchMovieResponseDTO = try await self.loadURLAndDecode(url: url, params: [
             "language": "en-US"
         ])
@@ -40,26 +40,26 @@ class APIManager: TMDBService {
     
     func searchTVSeries(query: String) async throws -> [SearchTVResultDetail] {
         guard let url = URL(string: "\(baseAPIURL)/search/tv") else {
-                    throw MovieError.invalidEndpoint
-                }
+            throw MovieError.invalidEndpoint
+        }
         let tvResponse: SearchTVResponseDTO = try await self.loadURLAndDecode(url: url, params: [
             "language": "en-US",
             "include_adult": "false",
             "region": "US",
             "query": query
         ])
-
+        
         return tvResponse.results
     }
     
     func discoverTVSeries(tmdbId: Int64) async throws -> [SearchTVResultDetail] {
         guard let url = URL(string: "\(baseAPIURL)/tv/\(tmdbId)/recommendations") else {
-                    throw MovieError.invalidEndpoint
-                }
+            throw MovieError.invalidEndpoint
+        }
         let tvResponse: SearchTVResponseDTO = try await self.loadURLAndDecode(url: url, params: [
             "language": "en-US"
         ])
-
+        
         return tvResponse.results
     }
     

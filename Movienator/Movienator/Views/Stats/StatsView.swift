@@ -15,7 +15,7 @@ struct LibraryTypeChartObject {
 
 struct StatsView: View {
     @StateObject var movieViewModel: MovieViewModel
-
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -81,13 +81,13 @@ struct StatsView: View {
     private func getWatchStateData() -> [LibraryTypeChartObject] {
         let wantToWatchCount = Double(movieViewModel.movieItems.filter { $0.watchState == .WantToWatch }.count)
         let watchedCount = Double(movieViewModel.movieItems.filter { $0.watchState == .Watched }.count)
-
+        
         let wantToWatchObject = LibraryTypeChartObject(name: "Watchlist", count: wantToWatchCount)
         let watchedObject = LibraryTypeChartObject(name: "Watched list", count: watchedCount)
-
+        
         return [wantToWatchObject, watchedObject]
     }
-
+    
     private func getWatchStateLegend(watchStateData: [LibraryTypeChartObject]) -> String {
         let legend = watchStateData.map { "\($0.name): \(Int($0.count))×" }.joined(separator: "\n")
         return legend

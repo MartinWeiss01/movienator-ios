@@ -12,7 +12,7 @@ struct SearchTitleView: View {
     @StateObject var movieViewModel: MovieViewModel
     @State var title: String
     @State var itemType: ItemType = .Movie
-
+    
     @State private var detailPresented: Bool = false
     
     var body: some View {
@@ -55,10 +55,3 @@ struct SearchTitleView: View {
         .navigationTitle(itemType.navigationTitle)
     }
 }
-/*
-struct SearchTitleView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchTitleView(title: "Fast and Furious")
-    }
-}
-*/

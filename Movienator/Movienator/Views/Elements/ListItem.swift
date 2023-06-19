@@ -11,7 +11,7 @@ struct ListItem: View {
     @State var title: String
     @State var releaseYear: String
     @State var posterURL: URL
-
+    
     var body: some View {
         HStack(alignment: .top) {
             AsyncImage(url: posterURL) { phase in

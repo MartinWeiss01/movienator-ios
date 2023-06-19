@@ -28,9 +28,9 @@ struct SearchResultDetail: Identifiable, Decodable {
     
     var releaseYear: String {
         guard let releaseDate = self.releaseDate, let date = DateUtils.format.date(from: releaseDate) else {
-                    return "N/A"
-                }
-                return SearchResultDetail.getYear.string(from: date)
+            return "N/A"
+        }
+        return SearchResultDetail.getYear.string(from: date)
     }
     
     static private let getYear: DateFormatter = {
@@ -61,9 +61,9 @@ struct SearchTVResultDetail: Identifiable, Decodable {
     
     var releaseYear: String {
         guard let releaseDate = self.firstAirDate, let date = DateUtils.format.date(from: releaseDate) else {
-                    return "N/A"
-                }
-                return SearchTVResultDetail.getYear.string(from: date)
+            return "N/A"
+        }
+        return SearchTVResultDetail.getYear.string(from: date)
     }
     
     static private let getYear: DateFormatter = {

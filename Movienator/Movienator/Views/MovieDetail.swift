@@ -11,7 +11,7 @@ struct SearchMovieDetail: View {
     @StateObject var movieViewModel: MovieViewModel
     @Binding var detailPresented: Bool
     @State var itemType: ItemType = .Movie
-
+    
     @State private var posterImage: UIImage = UIImage()
     @State private var backdropImage: UIImage = UIImage()
     let offset: CGFloat = -100
@@ -37,34 +37,37 @@ struct SearchMovieDetail: View {
                             }
                         }
                     }
-
+                    
                     
                     AsyncImage(url: currentItem.getPosterURL) { image in
-                              image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 250)
-                                .shadow(radius: 20)
-                                .offset(y: offset)
-                                .zIndex(1)
-                                  
-                          } placeholder: {
-                              Color.gray
-                          }
-                          .frame(width: 250, height: 250)
-                          .onAppear {
-                              Task {
-                                  if let posterData = try? Data(contentsOf: currentItem.getPosterURL) {
-                                      posterImage = UIImage(data: posterData) ?? UIImage()
-                                  }
-                              }
-                          }
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 250)
+                            .shadow(radius: 20)
+                            .offset(y: offset)
+                            .zIndex(1)
+                    } placeholder: {
+                        Color.gray
+                            .shadow(radius: 20)
+                            .offset(y: offset)
+                            .zIndex(1)
+                            .frame(width: 134, height: 201)
+                    }
+                    .frame(width: 250, height: 250)
+                    .onAppear {
+                        Task {
+                            if let posterData = try? Data(contentsOf: currentItem.getPosterURL) {
+                                posterImage = UIImage(data: posterData) ?? UIImage()
+                            }
+                        }
+                    }
                     
                     VStack {
                         Text(currentItem.title)
                             .font(.title)
                             .multilineTextAlignment(.center)
-
+                        
                         HStack {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
@@ -78,7 +81,7 @@ struct SearchMovieDetail: View {
                                     movieViewModel.removeLibraryItem(id: libraryItem.id)
                                 }
                                 .buttonStyle(.bordered)
-
+                                
                             } else {
                                 Button("Add to Watchlist") {
                                     let item: MovieItem = MovieItem(
@@ -95,7 +98,7 @@ struct SearchMovieDetail: View {
                                     )
                                     movieViewModel.addLibraryItem(item: item)
                                 }
-                                    .buttonStyle(.borderedProminent)
+                                .buttonStyle(.borderedProminent)
                                 
                                 Button("Already watched") {
                                     let item: MovieItem = MovieItem(
@@ -112,7 +115,7 @@ struct SearchMovieDetail: View {
                                     )
                                     movieViewModel.addLibraryItem(item: item)
                                 }
-                                    .buttonStyle(.bordered)
+                                .buttonStyle(.bordered)
                             }
                         }
                         
@@ -125,7 +128,7 @@ struct SearchMovieDetail: View {
                                     .multilineTextAlignment(.leading)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        
+                            
                             Spacer()
                             
                             VStack(alignment: .leading) {

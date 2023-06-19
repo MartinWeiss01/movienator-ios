@@ -15,7 +15,7 @@ struct DiscoverView: View {
     @State private var selectedType: ItemType = .Movie
     @State private var selectedTMDBID: Int64 = 0
     @State private var findActive: Bool = false
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -60,29 +60,29 @@ struct DiscoverView: View {
                             if(movieViewModel.isSearching) {
                                 ProgressView()
                             } else if(!movieViewModel.isSearching && findActive) {
-                                    Text("Results")
-                                        .font(.title2)
-                                        .fontWeight(.bold)
-                                        .padding(.vertical, 12)
-                                    
-                                    if(movieViewModel.searchItems.isEmpty) {
-                                        EmptyList(text: "No results found")
-                                    } else {
-                                        List(movieViewModel.searchItems) { movie in
-                                            if(true) {
-                                                ListItem(
-                                                    title: movie.title,
-                                                    releaseYear: movie.releaseYear,
-                                                    posterURL: movie.getPosterURL
-                                                )
-                                                .padding(.vertical)
-                                                .onTapGesture {
-                                                    movieViewModel.selectSearchItem(id: movie.id)
-                                                    detailPresented.toggle()
-                                                }
+                                Text("Results")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .padding(.vertical, 12)
+                                
+                                if(movieViewModel.searchItems.isEmpty) {
+                                    EmptyList(text: "No results found")
+                                } else {
+                                    List(movieViewModel.searchItems) { movie in
+                                        if(true) {
+                                            ListItem(
+                                                title: movie.title,
+                                                releaseYear: movie.releaseYear,
+                                                posterURL: movie.getPosterURL
+                                            )
+                                            .padding(.vertical)
+                                            .onTapGesture {
+                                                movieViewModel.selectSearchItem(id: movie.id)
+                                                detailPresented.toggle()
                                             }
                                         }
                                     }
+                                }
                             }
                         }
                     )
