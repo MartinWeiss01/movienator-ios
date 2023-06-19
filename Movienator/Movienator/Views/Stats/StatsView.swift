@@ -18,48 +18,55 @@ struct StatsView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                LazyVStack {
-                    HStack {
-                        let typeData = getLibraryItemTypeData()
-                        PieChartView(
-                            data: typeData.map { $0.count },
-                            title: "Library Items",
-                            legend: getLibraryItemTypeLegend(typeData: typeData),
-                            style: Styles.barChartMidnightGreenDark,
-                            form: ChartForm.medium
-                        )
+            if(movieViewModel.movieItems.isEmpty) {
+                VStack{
+                    EmptyList(text: "No data available in the library yet", icon: "chart.pie")
+                }
+                .navigationTitle("Your Statistics")
+            } else {
+                ScrollView {
+                    LazyVStack {
+                        HStack {
+                            let typeData = getLibraryItemTypeData()
+                            PieChartView(
+                                data: typeData.map { $0.count },
+                                title: "Library Items",
+                                legend: getLibraryItemTypeLegend(typeData: typeData),
+                                style: Styles.barChartMidnightGreenDark,
+                                form: ChartForm.medium
+                            )
+                            
+                            let watchStateData = getWatchStateData()
+                            PieChartView(
+                                data: watchStateData.map { $0.count },
+                                title: "Watch State",
+                                legend: getWatchStateLegend(watchStateData: watchStateData),
+                                style: Styles.barChartStyleNeonBlueDark,
+                                form: ChartForm.medium
+                            )
+                        }
                         
-                        let watchStateData = getWatchStateData()
-                        PieChartView(
-                            data: watchStateData.map { $0.count },
-                            title: "Watch State",
-                            legend: getWatchStateLegend(watchStateData: watchStateData),
-                            style: Styles.barChartStyleNeonBlueDark,
-                            form: ChartForm.medium
-                        )
-                    }
-                    
-                    Spacer()
-                    
-                    let ratingData = getRatingData()
-                    
-                    HStack {
-                        BarChartView(
-                            data: ChartData(values: ratingData),
-                            title: "Frequency of Ratings in Your Library",
-                            style: Styles.barChartStyleOrangeDark,
-                            form: ChartForm.extraLarge,
-                            dropShadow: false,
-                            cornerImage: Image(systemName: "star.fill"),
-                            valueSpecifier: "%.0f× in your library"
-                        )
+                        Spacer()
+                        
+                        let ratingData = getRatingData()
+                        
+                        HStack {
+                            BarChartView(
+                                data: ChartData(values: ratingData),
+                                title: "Frequency of Ratings in Your Library",
+                                style: Styles.barChartStyleOrangeDark,
+                                form: ChartForm.extraLarge,
+                                dropShadow: false,
+                                cornerImage: Image(systemName: "star.fill"),
+                                valueSpecifier: "%.0f× in your library"
+                            )
+                        }
+                        .padding(.vertical, 12)
                     }
                     .padding(.vertical, 12)
                 }
-                .padding(.vertical, 12)
+                .navigationTitle("Your Statistics")
             }
-            .navigationTitle("Your Statistics")
         }
     }
     

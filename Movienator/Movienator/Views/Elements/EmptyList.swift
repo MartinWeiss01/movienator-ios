@@ -9,11 +9,12 @@ import SwiftUI
 
 struct EmptyList: View {
     var text: String = "Oops! There are no movies or TV shows yet."
+    var icon: String = "film"
     var body: some View {
         VStack {
             Spacer()
             
-            Image(systemName: "film")
+            Image(systemName: icon)
                 .font(.largeTitle)
                 .foregroundColor(.gray)
                 .padding(.bottom, 8)
