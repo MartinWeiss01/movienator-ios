@@ -67,42 +67,46 @@ struct LibraryDetail: View {
                                 
                             } else {
                                 Button("Add to Watchlist") {
-                                    let item: MovieItem = MovieItem(
-                                        id: movieItem!.id,
-                                        title: movieItem!.title,
-                                        tmdb: movieItem!.tmdb,
-                                        type: movieItem!.type,
-                                        watchState: .WantToWatch,
-                                        details: movieItem!.details,
-                                        rating: movieItem!.rating,
-                                        posterAssetName: posterImage,
-                                        backdropAssetName: backdropImage,
-                                        releaseDate: movieItem!.releaseDate,
-                                        added: Date(),
-                                        genres: movieItem!.genres
-                                    )
-                                    movieViewModel.addLibraryItem(item: item, genreIds: []) //TODO genres
-                                    removedItem = false
+                                    if let localItem = movieItem {
+                                        let item: MovieItem = MovieItem(
+                                            id: localItem.id,
+                                            title: localItem.title,
+                                            tmdb: localItem.tmdb,
+                                            type: localItem.type,
+                                            watchState: .WantToWatch,
+                                            details: localItem.details,
+                                            rating: localItem.rating,
+                                            posterAssetName: posterImage,
+                                            backdropAssetName: backdropImage,
+                                            releaseDate: localItem.releaseDate,
+                                            added: Date(),
+                                            genres: localItem.genres
+                                        )
+                                        movieViewModel.addLibraryItem(item: item, genreIds: [])
+                                        removedItem = false
+                                    }
                                 }
                                 .buttonStyle(.borderedProminent)
                                 
                                 Button("Already watched") {
-                                    let item: MovieItem = MovieItem(
-                                        id: movieItem!.id,
-                                        title: movieItem!.title,
-                                        tmdb: movieItem!.tmdb,
-                                        type: movieItem!.type,
-                                        watchState: .Watched,
-                                        details: movieItem!.details,
-                                        rating: movieItem!.rating,
-                                        posterAssetName: posterImage,
-                                        backdropAssetName: backdropImage,
-                                        releaseDate: movieItem!.releaseDate,
-                                        added: Date(),
-                                        genres: movieItem!.genres
-                                    )
-                                    movieViewModel.addLibraryItem(item: item, genreIds: []) //TODO genres
-                                    removedItem = false
+                                    if let localItem = movieItem {
+                                        let item: MovieItem = MovieItem(
+                                            id: localItem.id,
+                                            title: localItem.title,
+                                            tmdb: localItem.tmdb,
+                                            type: localItem.type,
+                                            watchState: .Watched,
+                                            details: localItem.details,
+                                            rating: localItem.rating,
+                                            posterAssetName: posterImage,
+                                            backdropAssetName: backdropImage,
+                                            releaseDate: localItem.releaseDate,
+                                            added: Date(),
+                                            genres: localItem.genres
+                                        )
+                                        movieViewModel.addLibraryItem(item: item, genreIds: [])
+                                        removedItem = false
+                                    }
                                 }
                                 .buttonStyle(.bordered)
                             }
