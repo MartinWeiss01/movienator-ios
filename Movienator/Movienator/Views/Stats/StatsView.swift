@@ -108,6 +108,7 @@ struct StatsView: View {
             }
             return ("\(rating)/10", count)
         }
+            //.filter { $0.1 > 0 }
         return data
     }
 }
