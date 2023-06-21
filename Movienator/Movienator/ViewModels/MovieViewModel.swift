@@ -63,7 +63,6 @@ class MovieViewModel: ObservableObject {
             do {
                 let encodedGenres = try JSONUtils.encodeStringArray(item.genres)
                 availableGenres = encodedGenres
-                print(availableGenres)
             } catch {
                 print(error)
             }

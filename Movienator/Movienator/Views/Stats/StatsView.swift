@@ -16,6 +16,8 @@ struct LibraryTypeChartObject {
 struct StatsView: View {
     @StateObject var movieViewModel: MovieViewModel
     
+    let topGenresLimit: Int = 10
+    
     var body: some View {
         NavigationView {
             if(movieViewModel.movieItems.isEmpty) {
@@ -26,6 +28,28 @@ struct StatsView: View {
             } else {
                 ScrollView {
                     LazyVStack {
+                        VStack {
+                        Text("Top \(topGenresLimit) Genres")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .multilineTextAlignment(.leading)
+                            .padding(.bottom, 1)
+
+                        let genres = getGenresData(topGenresLimit)
+                            ForEach(genres, id: \.description) { genre in
+                                Text(genre)
+                                    .multilineTextAlignment(.leading)
+                                    .padding(.bottom, 1)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 24)
+                        .padding(.bottom, 24)
+                        
+                        Spacer()
+
                         HStack {
                             let typeData = getLibraryItemTypeData()
                             PieChartView(
@@ -63,8 +87,10 @@ struct StatsView: View {
                         }
                         .padding(.vertical, 12)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.vertical, 12)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .navigationTitle("Your Statistics")
             }
         }
@@ -110,5 +136,28 @@ struct StatsView: View {
         }
             //.filter { $0.1 > 0 }
         return data
+    }
+    
+    private func getGenresData(_ maxLength: Int = 5) -> [String] {
+        let topGenres = movieViewModel.movieItems.flatMap {
+            //Get list of genres
+            $0.genres
+        }.reduce(into: [:]) { dict, genre in
+            //Convert to dict [GenreName: Count]
+            dict[genre, default: 0] += 1
+        }.sorted {
+            //Sort by dict value - count
+            $0.value > $1.value
+        }
+        .prefix(maxLength) //Get only top 5
+        .enumerated() //to get idx $0
+        .map {
+            //Change format to [(genre, count)]
+            //"($0.key, $0.value)
+            "\($0 + 1). \($1.key)" //enumerated
+        }
+
+        print(topGenres)
+        return topGenres
     }
 }
