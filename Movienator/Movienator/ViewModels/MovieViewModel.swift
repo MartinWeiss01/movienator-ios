@@ -56,25 +56,14 @@ class MovieViewModel: ObservableObject {
         }
     }
     
-    func addLibraryItem(item: MovieItem, genreIds: [Int64]?, useExternalGenres: Bool = false) {
+    func addLibraryItem(item: MovieItem) {
         var availableGenres: String = "[]"
         
-        if (useExternalGenres) {
-            if let genreArr = genreIds {
-                if !genreArr.isEmpty {
-                    do {
-                        let genreNames = GenreUtils.getGenreNames(genreIds: genreArr)
-                        let encodedGenres = try JSONUtils.encodeStringArray(genreNames)
-                        availableGenres = encodedGenres
-                    } catch {
-                        print(error)
-                    }
-                }
-            }
-        } else {
+        if(!item.genres.isEmpty) {
             do {
                 let encodedGenres = try JSONUtils.encodeStringArray(item.genres)
                 availableGenres = encodedGenres
+                print(availableGenres)
             } catch {
                 print(error)
             }

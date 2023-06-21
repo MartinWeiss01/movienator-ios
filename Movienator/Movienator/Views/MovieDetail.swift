@@ -83,6 +83,7 @@ struct SearchMovieDetail: View {
                                 .buttonStyle(.bordered)
                                 
                             } else {
+                                let genresNames = GenreUtils.getGenreNamesFromIds(genreIds: currentItem.genreIds)
                                 Button("Add to Watchlist") {
                                     let item: MovieItem = MovieItem(
                                         title: currentItem.title,
@@ -95,9 +96,9 @@ struct SearchMovieDetail: View {
                                         backdropAssetName: backdropImage,
                                         releaseDate: currentItem.releaseDate ?? "N/A",
                                         added: Date(),
-                                        genres: []
+                                        genres: genresNames
                                     )
-                                    movieViewModel.addLibraryItem(item: item, genreIds: currentItem.genreIds, useExternalGenres: true)
+                                    movieViewModel.addLibraryItem(item: item)
                                 }
                                 .buttonStyle(.borderedProminent)
                                 
@@ -113,9 +114,9 @@ struct SearchMovieDetail: View {
                                         backdropAssetName: backdropImage,
                                         releaseDate: currentItem.releaseDate ?? "N/A",
                                         added: Date(),
-                                        genres: []
+                                        genres: genresNames
                                     )
-                                    movieViewModel.addLibraryItem(item: item, genreIds: currentItem.genreIds, useExternalGenres: true)
+                                    movieViewModel.addLibraryItem(item: item)
                                 }
                                 .buttonStyle(.bordered)
                             }

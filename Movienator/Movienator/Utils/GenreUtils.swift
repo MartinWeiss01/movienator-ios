@@ -8,7 +8,7 @@
 import Foundation
 
 class GenreUtils {
-    static func getGenreNames(genreIds: [Int64]?) -> [String] {
+    static func getGenreNamesFromIds(genreIds: [Int64]?) -> [String] {
         if let genresList = genreIds {
             let genreNames = genresList.compactMap { id in
                 GenreList(rawValue: Int(id))?.name
@@ -20,7 +20,7 @@ class GenreUtils {
     }
     
     static func getGenreString(genreIds: [Int64]?) -> String {
-        let genreName = getGenreNames(genreIds: genreIds)
+        let genreName = getGenreNamesFromIds(genreIds: genreIds)
         let genreConcat = genreName.joined(separator: ", ")
         return genreConcat
     }

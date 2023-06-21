@@ -82,7 +82,7 @@ struct LibraryDetail: View {
                                             added: Date(),
                                             genres: localItem.genres
                                         )
-                                        movieViewModel.addLibraryItem(item: item, genreIds: [])
+                                        movieViewModel.addLibraryItem(item: item)
                                         removedItem = false
                                     }
                                 }
@@ -104,7 +104,7 @@ struct LibraryDetail: View {
                                             added: Date(),
                                             genres: localItem.genres
                                         )
-                                        movieViewModel.addLibraryItem(item: item, genreIds: [])
+                                        movieViewModel.addLibraryItem(item: item)
                                         removedItem = false
                                     }
                                 }
