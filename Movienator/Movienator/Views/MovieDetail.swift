@@ -94,9 +94,10 @@ struct SearchMovieDetail: View {
                                         posterAssetName: posterImage,
                                         backdropAssetName: backdropImage,
                                         releaseDate: currentItem.releaseDate ?? "N/A",
-                                        added: Date()
+                                        added: Date(),
+                                        genres: []
                                     )
-                                    movieViewModel.addLibraryItem(item: item)
+                                    movieViewModel.addLibraryItem(item: item, genreIds: currentItem.genreIds, useExternalGenres: true)
                                 }
                                 .buttonStyle(.borderedProminent)
                                 
@@ -111,9 +112,10 @@ struct SearchMovieDetail: View {
                                         posterAssetName: posterImage,
                                         backdropAssetName: backdropImage,
                                         releaseDate: currentItem.releaseDate ?? "N/A",
-                                        added: Date()
+                                        added: Date(),
+                                        genres: []
                                     )
-                                    movieViewModel.addLibraryItem(item: item)
+                                    movieViewModel.addLibraryItem(item: item, genreIds: currentItem.genreIds, useExternalGenres: true)
                                 }
                                 .buttonStyle(.bordered)
                             }

@@ -56,7 +56,30 @@ class MovieViewModel: ObservableObject {
         }
     }
     
-    func addLibraryItem(item: MovieItem) {
+    func addLibraryItem(item: MovieItem, genreIds: [Int64]?, useExternalGenres: Bool = false) {
+        var availableGenres: String = "[]"
+        
+        if (useExternalGenres) {
+            if let genreArr = genreIds {
+                if !genreArr.isEmpty {
+                    do {
+                        let genreNames = GenreUtils.getGenreNames(genreIds: genreArr)
+                        let encodedGenres = try JSONUtils.encodeStringArray(genreNames)
+                        availableGenres = encodedGenres
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+        } else {
+            do {
+                let encodedGenres = try JSONUtils.encodeStringArray(item.genres)
+                availableGenres = encodedGenres
+            } catch {
+                print(error)
+            }
+        }
+        
         let movie = Movie(context: moc)
         movie.id = item.id
         movie.title = item.title
@@ -69,7 +92,7 @@ class MovieViewModel: ObservableObject {
         movie.backdrop = item.backdropAssetName.pngData()
         movie.releaseDate = item.releaseDate
         movie.added = Date()
-        
+        movie.genres = availableGenres
         
         save()
         movieItems.append(item)
@@ -95,6 +118,14 @@ class MovieViewModel: ObservableObject {
     
     func fetchItems(movies: FetchedResults<Movie>) {
         movieItems = movies.map {
+            var availableGenres: [String] = []
+            do {
+                let decodedString = try JSONUtils.decodeStringArray(from: $0.genres ?? "[]")
+                availableGenres = decodedString
+            } catch {
+                print(error)
+            }
+            
             return MovieItem(
                 id: $0.id ?? UUID(),
                 title: $0.title ?? "Unknown title",
@@ -106,14 +137,15 @@ class MovieViewModel: ObservableObject {
                 posterAssetName: UIImage(data: $0.poster ?? Data()) ?? UIImage(),
                 backdropAssetName: UIImage(data: $0.backdrop ?? Data()) ?? UIImage(),
                 releaseDate: $0.releaseDate ?? "N/A",
-                added: $0.added ?? Date()
+                added: $0.added ?? Date(),
+                genres: availableGenres
             )
         }
         
         watchlistItems = movieItems
             .filter { $0.watchState == .WantToWatch }
             .sorted(by: { $0.added < $1.added })
-
+        
         watchedListItems = movieItems
             .filter { $0.watchState == .Watched }
             .sorted(by: { $0.added > $1.added })

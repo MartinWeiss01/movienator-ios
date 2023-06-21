@@ -78,9 +78,10 @@ struct LibraryDetail: View {
                                         posterAssetName: posterImage,
                                         backdropAssetName: backdropImage,
                                         releaseDate: movieItem!.releaseDate,
-                                        added: Date()
+                                        added: Date(),
+                                        genres: movieItem!.genres
                                     )
-                                    movieViewModel.addLibraryItem(item: item)
+                                    movieViewModel.addLibraryItem(item: item, genreIds: []) //TODO genres
                                     removedItem = false
                                 }
                                 .buttonStyle(.borderedProminent)
@@ -97,9 +98,10 @@ struct LibraryDetail: View {
                                         posterAssetName: posterImage,
                                         backdropAssetName: backdropImage,
                                         releaseDate: movieItem!.releaseDate,
-                                        added: Date()
+                                        added: Date(),
+                                        genres: movieItem!.genres
                                     )
-                                    movieViewModel.addLibraryItem(item: item)
+                                    movieViewModel.addLibraryItem(item: item, genreIds: []) //TODO genres
                                     removedItem = false
                                 }
                                 .buttonStyle(.bordered)

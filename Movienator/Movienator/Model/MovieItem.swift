@@ -19,6 +19,7 @@ struct MovieItem: Identifiable {
     var backdropAssetName: UIImage
     var releaseDate: String
     var added: Date
+    var genres: [String]
 }
 
 enum ItemType: Int16, CaseIterable, Identifiable {
