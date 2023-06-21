@@ -134,6 +134,17 @@ struct SearchMovieDetail: View {
                             Spacer()
                             
                             VStack(alignment: .leading) {
+                                Text("Genre")
+                                    .fontWeight(.bold)
+                                    .multilineTextAlignment(.leading)
+                                Text(GenreUtils.getGenreString(genreIds: currentItem.genreIds))
+                                    .multilineTextAlignment(.leading)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            Spacer()
+                            
+                            VStack(alignment: .leading) {
                                 Text("Overview")
                                     .fontWeight(.bold)
                                     .multilineTextAlignment(.leading)
